@@ -1,4 +1,5 @@
 const Author = require("../models/authorModel");
+const Book = require("../models/bookModel");
 
 const getAllAuthor = async (req, res) => {
   const authors = await Author.find({});
@@ -7,7 +8,8 @@ const getAllAuthor = async (req, res) => {
 
 const getAuthorById = async (req, res) => {
   const author = await Author.findById(req.params.authorId).exec();
-  res.json(author);
+  const books = await Book.find({ author: author._id });
+  res.json({ author, books });
 };
 
 const addAuthor = async (req, res) => {
@@ -21,7 +23,7 @@ const updateAuthor = async (req, res) => {
   const updatedAuthor = await Author.findByIdAndUpdate(
     req.params.authorId,
     req.body,
-    { nwe: true }
+    { new: true }
   );
   res.json(updatedAuthor);
 };

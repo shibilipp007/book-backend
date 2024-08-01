@@ -1,10 +1,12 @@
 const mongoose = require("mongoose");
 
 const authorSchema = new mongoose.Schema({
-  Name: String,
+  name: String,
+  thumbnail: String,
   nationality: String,
+  description: String,
 });
 
-const Author = mongoose.model("author", authorSchema);
+const Author = mongoose.model("Author", authorSchema);
 
 module.exports = Author;

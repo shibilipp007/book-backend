@@ -1,12 +1,12 @@
 const Book = require("../models/bookModel");
 
 const getAllbook = async (req, res) => {
-  const books = await Book.find({});
+  const books = await Book.find(req.query).populate(`author`);
   res.json(books);
 };
 
 const getBookById = async (req, res) => {
-  const book = await Book.findById(req.params.bookId).exec();
+  const book = await Book.findById(req.params.bookId).populate(`author`).exec();
   res.json(book);
 };
 
