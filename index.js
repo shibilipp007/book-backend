@@ -8,7 +8,7 @@ const authRoutes = require("./routes/authRoutes");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const app = express();
-const port = 3000;
+const port = process.env.PORT;
 
 app.use(cors({ origin: "http://localhost:5173", credentials: true }));
 app.use(express.json());
