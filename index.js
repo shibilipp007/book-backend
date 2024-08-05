@@ -10,7 +10,7 @@ const cors = require("cors");
 const app = express();
 const port = process.env.PORT;
 
-app.use(cors({ origin: "http://localhost:5173", credentials: true }));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use("/books", bookRoutes);
@@ -19,6 +19,7 @@ app.use("/users", userRoutes);
 app.use("/auth", authRoutes);
 
 app.use((error, req, res, next) => {
+  console.log(error);
   res.status(500).json({ message: "internal server error" });
 });
 

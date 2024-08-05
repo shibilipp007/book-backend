@@ -20,11 +20,13 @@ const Login = async (req, res) => {
       { _id: user._id, email: user.email, name: user.name },
       process.env.JWT_KEY
     );
-    res.cookie("token", token, {
-      httpOnly: true,
-      maxAge: 1 * 60 * 60 * 1000,
-    });
-    res.status(200).send("Logged in");
+    res
+      .cookie("token", token, {
+        httpOnly: true,
+        maxAge: 1 * 60 * 60 * 1000,
+      })
+      .status(200)
+      .json(user);
   } else {
     res.send("Unautherised access: Incorrect password");
   }
@@ -34,4 +36,8 @@ const verifyLogin = async (req, res) => {
   res.json(req.user);
 };
 
-module.exports = { Login, verifyLogin };
+const logoutHandler = (req, res) => {
+  return res.clearCookie("token").sendStatus(204);
+};
+
+module.exports = { Login, verifyLogin, logoutHandler };
